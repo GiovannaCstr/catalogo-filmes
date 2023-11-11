@@ -71,3 +71,20 @@ export async function buscarPorId(id) {
     return lista[0];
 }
 
+
+export async function alterar(id, filme) {
+    let comando = `
+        UPDATE  tb_filmes
+        SET     nome_filme = ?,
+                sinopse = ?,
+                avaliacao = ?,
+                dt_lancamento = ?,
+                bt_disponivel = ?
+        WHERE   id_filme = ?
+    `
+
+    let resp = await conexao.query(comando, [filme.nome, filme.sinopse, filme.avaliacao, filme.lancamento, filme.disponivel, id])
+    let info = resp[0];
+
+    return info.affectedRows;
+}

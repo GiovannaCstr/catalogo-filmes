@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { salvar, listarTodos, buscarPorNome, buscarPorId } from "../repository/filmeRepository.js";
+import { salvar, listarTodos, buscarPorNome, buscarPorId, alterar } from "../repository/filmeRepository.js";
 
 
 const endpoints = Router();
@@ -31,5 +31,17 @@ endpoints.get('/filme/:id', async (req, resp) => {
     resp.send(r);
 })
 
+
+endpoints.put('/filme/:id', async (req, resp) => {
+    let id = req.params.id;
+    let filme = req.body;
+
+    let r = await alterar(id, filme);
+    if(r == 0) 
+        resp.status(404).send();
+    else
+        resp.status(202).send();
+    resp.send(r);
+})
 
 export default endpoints;
