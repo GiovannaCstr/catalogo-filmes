@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { salvar, listarTodos, buscarPorNome, buscarPorId, alterar } from "../repository/filmeRepository.js";
+import { salvar, listarTodos, buscarPorNome, buscarPorId, alterar, deletar } from "../repository/filmeRepository.js";
 
 
 const endpoints = Router();
@@ -41,7 +41,18 @@ endpoints.put('/filme/:id', async (req, resp) => {
         resp.status(404).send();
     else
         resp.status(202).send();
-    resp.send(r);
 })
+
+
+endpoints.delete('/filme/:id', async (req, resp) => {
+    let id = req.params.id;
+
+    let r = await deletar(id);
+    if(r == 0) 
+        resp.status(404).send();
+    else
+        resp.status(202).send();
+})
+
 
 export default endpoints;

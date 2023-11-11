@@ -88,3 +88,13 @@ export async function alterar(id, filme) {
 
     return info.affectedRows;
 }
+
+
+export async function deletar(id) {
+    let comando = `DELETE FROM tb_filmes WHERE id_filme = ?`
+
+    let resp = await conexao.query(comando, [id])
+    let info = resp[0];
+
+    return info.affectedRows;
+}
