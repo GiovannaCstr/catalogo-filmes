@@ -12,3 +12,20 @@ export async function salvar(filme) {
     filme.id = info.insertId;
     return filme;
 }
+
+export async function listarTodos() {
+    let comando = `
+        SELECT  id_filme,
+                nome_filme,
+                sinopse,
+                avaliacao,
+                dt_lancamento,
+                bt_disponivel
+        FROM    tb_filmes
+    `
+
+    let resp = await conexao.query(comando);
+    let lista = resp[0];
+
+    return lista;
+}
